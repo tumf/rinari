@@ -113,6 +113,7 @@ exec-to-string command, but it works and seems fast"
 buffer. If supplied, `name' will be used in place of the script
 name to construct the name of the compilation buffer."
   (interactive "FRuby Comand: ")
+  (rvm-activate-corresponding-ruby)
   (let ((name (or name (file-name-nondirectory (car (split-string cmd)))))
 	(cmdlist (append (list ruby-compilation-executable)
                          ruby-options
@@ -123,6 +124,7 @@ name to construct the name of the compilation buffer."
 (defun ruby-compilation-rake (&optional edit task env-vars)
   "Run a rake process dumping output to a ruby compilation buffer."
   (interactive "P")
+  (rvm-activate-corresponding-ruby)
   (let* ((task (concat
 		(or task (if (stringp edit) edit)
 		    (completing-read "Rake: " (pcmpl-rake-tasks)))
@@ -141,6 +143,7 @@ name to construct the name of the compilation buffer."
 (defun ruby-compilation-cap (&optional edit task env-vars)
   "Run a capistrano process dumping output to a ruby compilation buffer."
   (interactive "P")
+  (rvm-activate-corresponding-ruby)
   (let* ((task (concat
 		(or task (if (stringp edit) edit)
 		    (completing-read "Cap: " (pcmpl-cap-tasks)))
